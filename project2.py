@@ -127,7 +127,7 @@ def gdisconnect():
 	#disconnecting user
 	credentials = login_session.get('credentials')
 	if credentials is None:
-		response = male_response(json.dumps('Current user not connected.'), 401)
+		response = make_response(json.dumps('Current user not connected.'), 401)
 		response.headers['Content-Type'] = 'application/json'
 		return response
 	#revoking current token 
@@ -157,15 +157,15 @@ def bookList():
 
   return render_template('booklist.html', categories=categories)
 
-# @app.route('/book/<category_name>/JSON')
-# def categoryListJSON(category_name):
-# 	selectedCategory = session.query(Book).filter_by(category_name=category_name).all()
-# 	return jsonify(BookLists=[i.serialize for i in selectedCategory])
+@app.route('/book/<category_name>/JSON')
+def categoryListJSON(category_name):
+	selectedCategory = session.query(Book).filter_by(category_name=category_name).all()
+	return jsonify(BookLists=[i.serialize for i in selectedCategory])
 
-# @app.route('/book/<category_name>/<book_view>/JSON')
-# def selectedBookJSON(category_name, book_view):
-# 	selectedBook = session.query(Book).filter_by(title=book_view).one()
-# 	return jsonify(BookSelected=selectedBook.serialize)
+@app.route('/book/<category_name>/<book_view>/JSON')
+def selectedBookJSON(category_name, book_view):
+	selectedBook = session.query(Book).filter_by(title=book_view).one()
+	return jsonify(BookSelected=selectedBook.serialize)
 
 @app.route('/book/<category_name>/')
 def selectedCategoryList(category_name):
@@ -183,8 +183,8 @@ def viewSelectedBook(category_name, book_view):
 
 @app.route('/book/new/', methods=['GET', 'POST'])
 def newBook():
-  # if 'username' not in login_session:
-  #   return redirect('/login')
+  if 'username' not in login_session:
+    return redirect('/login')
   if request.method == 'POST':
   	number = randint(6,12500)
   	newbook = Book(title=request.form['title'], author=request.form['author'], description=request.form['description'], category_name=request.form['category'])
@@ -199,8 +199,8 @@ def newBook():
 
 @app.route('/book/<book_for_edit>/edit/', methods=['GET', 'POST'])
 def editBook(book_for_edit):
-	# if 'username' not in login_session:
-	# 	return redirect('/login')
+	if 'username' not in login_session:
+		return redirect('/login')
 	editedBook = session.query(Book).filter_by(title=book_for_edit).one()
 	if request.method == 'POST':
 		if request.form['title']:
@@ -223,8 +223,8 @@ def editBook(book_for_edit):
 
 @app.route('/book/<book_to_delete>/delete/', methods=['GET', 'POST'])
 def deleteBook(book_to_delete):
-	# if 'username' not in login_session:
-	# 	return redirect('/login')
+	if 'username' not in login_session:
+		return redirect('/login')
 	deletingBook = session.query(Book).filter_by(title=book_to_delete).first()
 	if request.method == 'POST':
 		session.delete(deletingBook)
