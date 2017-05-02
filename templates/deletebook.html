@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+		</style>
+	</head>
+
+	<body>
+		<h1> Are you sure you want to delete {{book_to_delete.title}}</h1>
+
+		<form action="#" method = 'post'>
+
+			<input type='submit', value = 'Delete'>
+
+		</form>
+
+		<a href = "{{url_for('bookList')}}"> Cancel </a>
+	</body>
+
+</html>

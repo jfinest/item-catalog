@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+		</style>
+	</head>
+
+	<body>
+		<h1>Editing {{editedBook.title}}</h1>
+		<div>
+			<form action="{{url_for('editBook', book_for_edit=editedBook.title)}}" method = 'post'>
+				<dl>	
+					<dt>Title: </dt>
+						<dd><input type = 'text' size='50' name='title' value='{{editedBook.title}}'></dd>
+					<dt>Author: </dt>
+						<dd><input type = 'text' size='50' name='author' value='{{editedBook.author}}'></dd>
+					<dt>Description: </dt>
+						<dd><input type = 'text' size='250' name='description' value='{{editedBook.description}}'></dd>
+				</dl>
+
+				<p>Category:</p>
+					{% if editedBook.category_name == 'Sci-Fi' %}
+						<input type ='radio' name='category' value='Sci-Fi'checked >Sci-Fi</br>
+					{%else%}
+						<input type ='radio' name='category' value='Sci-Fi' >Sci-Fi</br>
+    				{% endif %}
+    				{% if editedBook.category_name == 'Trilogy' %}
+						<input type ='radio' name='category' value='Trilogy'checked >Trilogy</br>
+					{%else%}
+						<input type ='radio' name='category' value='Trilogy' >Trilogy</br>
+    				{% endif %}
+    				{% if editedBook.category_name == 'Poetry' %}
+						<input type ='radio' name='category' value='Poetry'checked >Poetry</br>
+					{%else%}
+						<input type ='radio' name='category' value='Poetry' >Poetry</br>
+    				{% endif %}
+    				{% if editedBook.category_name == 'Horror' %}
+						<input type ='radio' name='category' value='Horror'checked >Horror</br>
+					{%else%}
+						<input type ='radio' name='category' value='Horror' >Horror</br>
+    				{% endif %}
+				</br>
+				<input type='submit' value='Submit'>
+			</form>
+			<a href="{{url_for('bookList')}}">Cancel</a>
+		</div>
+	</body>
+</html>
