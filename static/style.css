@@ -1,12 +1,12 @@
-body{
+/*body{
 	font-family: sans-serif; 
 	background-image: url('img3.jpg'); 
 	background-color: #333333
-}
-h1, h2, h3, h4 { 
+}*/
+/*h1, h2, h3, h4 { 
 	color: #FFFFFF; 
-}
-h1, h2 { 
+}*/
+/*h1, h2 { 
 	font-family: 'Georgia', serif; 
 	margin: 0; 
 }
@@ -25,9 +25,21 @@ a {
 	text-decoration: none; 
 	color:#FFFFCC; 
 	font-size: .75em;
+}*/
+
+label {
+  display: block;
+  font-size: 20px;
 }
 
-.pane{
+textarea {
+  width: 500px;
+  height: 200px;
+  font-size: 17px;
+  font-family: monospace;
+}
+
+/*.pane{
 	position:absolute; left: 25%; 
 	border: 2px solid;
     border-radius: 25px; padding: 5px; margin: 5px; border-color: #999999; 
@@ -48,4 +60,4 @@ a {
 
 .flash{ 
 	background: #cee5F5; 
-}
+}*/
