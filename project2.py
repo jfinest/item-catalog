@@ -159,8 +159,10 @@ def gdisconnect():
 @app.route('/book/')
 def bookList():
   categories = session.query(Category).all()
-
-  return render_template('booklist.html', categories=categories)
+  if 'username' not in login_session:
+    return render_template('publicbooklist.html', categories=categories)
+  else:
+    return render_template('booklist.html', categories=categories)
 
 @app.route('/book/<category_name>/JSON')
 def categoryListJSON(category_name):
@@ -176,15 +178,19 @@ def selectedBookJSON(category_name, book_view):
 def selectedCategoryList(category_name):
   # name = session.query(Category).filter_by(id=categoryId).one()
   selectedCategory = session.query(Book).filter_by(category_name=category_name).all()
-
-  return render_template('categorylist.html', selectedCategory=selectedCategory)
+  if 'username' not in login_session:
+    return render_template('publiccategorylist.html', selectedCategory=selectedCategory)
+  else:
+    return render_template('categorylist.html', selectedCategory=selectedCategory, user=getUserID(login_session['email']))
 
 
 @app.route('/book/<category_name>/<book_view>/')
 def viewSelectedBook(category_name, book_view):
   bookSelected = session.query(Book).filter_by(title=book_view).one()
-
-  return render_template('bookView.html', bookSelected=bookSelected)
+  if 'username' not in login_session:
+    return render_template('publicbookview.html', bookSelected=bookSelected)
+  else:
+    return render_template('bookview.html', bookSelected=bookSelected, user=getUserID(login_session['email']))
 
 @app.route('/book/new/', methods=['GET', 'POST'])
 def newBook():
