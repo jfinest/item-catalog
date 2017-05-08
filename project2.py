@@ -110,6 +110,11 @@ def gconnect():
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
 
+    user_id = getUserID(login_session['email'])
+    if not user_id:
+      user_id = createUser(login_session)
+    login_session['user_id'] = user_id
+
     output = ''
     output += '<h1>Welcome, '
     output += login_session['username']
@@ -187,7 +192,7 @@ def newBook():
     return redirect('/login')
   if request.method == 'POST':
   	number = randint(6,12500)
-  	newbook = Book(title=request.form['title'], author=request.form['author'], description=request.form['description'], category_name=request.form['category'])
+  	newbook = Book(title=request.form['title'], author=request.form['author'], description=request.form['description'], category_name=request.form['category'], user_id= login_session['user_id'])
   	session.add(newbook)
   	# flash('New Book %s Successfully Created' % newBook.title)
   	session.commit()
@@ -233,6 +238,24 @@ def deleteBook(book_to_delete):
 		return redirect(url_for('bookList'))
 	else:
 		return render_template('deletebook.html', book_to_delete=deletingBook)
+
+def createUser(login_session):
+  newUser = User(name = login_session['username'], email = login_session['email'], picture = login_session['picture'])
+  session.add(newUser)
+  session.commit()
+  user = session.query(User).filter_by(email = login_session['email']).one()
+  return user.id
+
+def getUserInfo(user_id):
+  user = session.query(User).filter_by(id = user_id).one()
+  return user
+
+def getUserID(email):
+  try:
+    user = session.query(User).filter_by(email = email).one()
+    return user.id
+  except:
+    return None
 
 if __name__ == '__main__':
     app.debug = True
