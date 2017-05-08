@@ -1,22 +1,33 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<style type="text/css">
-		</style>
-	</head>
-
-	<body>
+{% extends "main.html" %}
+{% block content %}
 		<h1>Editing {{editedBook.title}}</h1>
 		<div>
 			<form action="{{url_for('editBook', book_for_edit=editedBook.title)}}" method = 'post'>
-				<dl>	
+				<label>
+					<div>Title:</div>
+					<input type='text' name='title' value='{{editedBook.title}}'>
+				</label>
+
+				<label>
+					<div>Author:</div>
+					<input type='text' name='author' value='{{editedBook.author}}'>
+				</label>
+
+				<label>
+					<div>Description:</div>
+					<textarea name='description' value='{{editedBook.description}}'>{{editedBook.description}}</textarea>
+				</label>
+
+
+
+				<!-- <dl>	
 					<dt>Title: </dt>
 						<dd><input type = 'text' size='50' name='title' value='{{editedBook.title}}'></dd>
 					<dt>Author: </dt>
 						<dd><input type = 'text' size='50' name='author' value='{{editedBook.author}}'></dd>
 					<dt>Description: </dt>
 						<dd><input type = 'text' size='250' name='description' value='{{editedBook.description}}'></dd>
-				</dl>
+				</dl> -->
 
 				<p>Category:</p>
 					{% if editedBook.category_name == 'Sci-Fi' %}
@@ -44,5 +55,4 @@
 			</form>
 			<a href="{{url_for('bookList')}}">Cancel</a>
 		</div>
-	</body>
-</html>
+{% endblock %}
