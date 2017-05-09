@@ -4,7 +4,7 @@
 	<a href="{{url_for('newBook')}}" > <h3> Create a New Book </h3> </a>
 
 	{% for book in selectedCategory %}
-		<a href = '{{url_for('viewSelectedBook', category_name=book.category_name, book_view=book.title)}}'><p>{{book.title}}</p></a>
+		<a href = '{{url_for('viewSelectedBook', category_name=book.category_name, book_view=book.title)}}'>{{book.title}}</br></a>
 		{% if user == book.user_id%}
 			<a href="{{url_for('editBook', book_for_edit= book.title)}}"><p>Edit</p></a>
 			<a href="{{url_for('deleteBook', book_to_delete= book.title)}}"><p>Delete</p></a>

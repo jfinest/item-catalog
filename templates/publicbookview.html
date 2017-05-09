@@ -1,6 +1,7 @@
 {% extends "main.html" %}
 {% block content %}
-	
+		<a href = "{{url_for('showLogin')}}"><button class="btn btn-primary">Log In</button></a>
+	</br></br>
 		<p>Title: {{bookSelected.title}}</p>
 		<p>Author: {{bookSelected.author}}</p>
 		<p>Description: {{bookSelected.description}}</p>

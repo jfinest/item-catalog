@@ -1,8 +1,11 @@
 {% extends "main.html" %}
 {% block content %}
-
+	
+	<a href = "{{url_for('showLogin')}}"><button class="btn btn-primary">Log In</button></a>
+	</br>
+	<h2>Book Listing:</h2>
 	{% for book in selectedCategory %}
-		<a href = '{{url_for('viewSelectedBook', category_name=book.category_name, book_view=book.title)}}'><p>{{book.title}}</p></a>
+		<a href = '{{url_for('viewSelectedBook', category_name=book.category_name, book_view=book.title)}}'>{{book.title}}</br></a>
 	{% endfor %}
 
 {% endblock %}
