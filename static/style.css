@@ -5,6 +5,8 @@
 }*/
 h1, h2, h3, h4 { 
 	color: #333333; 
+	position: fixed;
+	left: 7%;
 }
 h1, h2 { 
 	font-family: 'Georgia', serif; 
@@ -14,6 +16,10 @@ h1, h2 {
 h1 { 
 	border-bottom: 2px solid #eee; 
 }
+#book-synopsis{
+	position: fixed;
+	left: 8%;
+}
 h2 { 
 	font-size: 1.2em; 
 }
@@ -21,12 +27,17 @@ h2 {
 p{ 
 	color: #333333;
 	font-size: 1.5em;
+	position: fixed;
+	left: 8%;
 }
 
 a {
 	text-decoration: none; 
-	color:#337ab7; 
+	color: black; 
 	font-size: 1.5em;
+	left: 7%;
+	position: fixed;
+	margin: 10px;
 }
 
 label {
@@ -69,8 +80,42 @@ textarea {
     background-color: #337ab7;
     border-color: #2e6da4;
     position: fixed;
-    left: 50%;
+    right: 9%;
     margin: 10px;
+}
+
+.btn-info{
+	position: fixed;
+	margin: 10px;
+	left: 7%
+}
+
+.btn-warning{
+	color: #fff;
+	background-color: #f0ad4e;
+    border-color: #eea236;
+    position: fixed;
+    left: 7%;
+    margin: 10px;
+}
+.btn-danger{
+	color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    position: fixed;
+    left: 12%;
+    margin: 10px;
+}
+.btn-success{
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    color: #fff;
+    position: fixed;
+    left: 13%;
+}
+body{
+	background: url('book.jpeg') no-repeat fixed center;
+	background-size: cover;
 }
 /*.pane{
 	position:absolute; left: 25%; 
