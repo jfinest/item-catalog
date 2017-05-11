@@ -179,9 +179,9 @@ def selectedCategoryList(category_name):
   # name = session.query(Category).filter_by(id=categoryId).one()
   selectedCategory = session.query(Book).filter_by(category_name=category_name).all()
   if 'username' not in login_session:
-    return render_template('publiccategorylist.html', selectedCategory=selectedCategory)
+    return render_template('publiccategorylist.html', selectedCategory=selectedCategory, category=category_name)
   else:
-    return render_template('categorylist.html', selectedCategory=selectedCategory, user=getUserID(login_session['email']))
+    return render_template('categorylist.html', selectedCategory=selectedCategory, user=getUserID(login_session['email']), category=category_name)
 
 
 @app.route('/book/<category_name>/<book_view>/')
