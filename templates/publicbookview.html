@@ -2,9 +2,19 @@
 {% block content %}
 		<a href = "{{url_for('showLogin')}}"><button class="btn btn-primary">Log In</button></a>
 	</br></br>
+		<h1 id="book-synopsis">Book Synopsis</h1>
+		</br>
+		</br>
+		</br>
 		<p>Title: {{bookSelected.title}}</p>
+		</br>
+		</br>
 		<p>Author: {{bookSelected.author}}</p>
+		</br>
+		</br>
 		<p>Description: {{bookSelected.description}}</p>
+		</br>
+		</br>
 		<p>Category: {{bookSelected.category_name}}</p>
 
 {% endblock %}

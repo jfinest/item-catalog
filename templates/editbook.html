@@ -40,8 +40,8 @@
 						<input type ='radio' name='category' value='Horror'>Horror</br>
     				{% endif %}
 				</br>
-				<input type='submit' value='Submit'>
+				<button type='submit' class="btn btn-success">Submit</button>
 			</form>
-			<a href="{{url_for('bookList')}}">Cancel</a>
+			<a href="{{url_for('bookList')}}"><button class="btn btn-danger">Cancel</button></a>
 		</div>
 {% endblock %}

@@ -1,15 +1,28 @@
 {% extends "main.html" %}
 {% block content %}
-		<h1> Book Description</h1>
-		<br/>
+		<a href = "{{url_for('gdisconnect')}}"><button class="btn btn-primary">Log Out</button></br></a>
+		<h1 id="book-synopsis"> Book Synopsis</h1>
+		</br>
+		</br>
+		</br>
 		<p>Title: {{bookSelected.title}}</p>
+		</br>
+		</br>
+		</br>
 		<p>Author: {{bookSelected.author}}</p>
+		</br>
+		</br>
+		</br>
 		<p>Description: {{bookSelected.description}}</p>
+		</br>
+		</br>
+		</br>
 		<p>Category: {{bookSelected.category_name}}</p>
 		</br>
+		</br>
 		{% if user == bookSelected.user_id%}
-			<a href="{{url_for('editBook', book_for_edit= bookSelected.title)}}"><p>Edit</p></a>
-			<a href="{{url_for('deleteBook', book_to_delete= bookSelected.title)}}"><p>Delete</p></a>
+			<a href="{{url_for('editBook', book_for_edit= bookSelected.title)}}"><button class="btn btn-warning" id="edit-button-synopsis">Edit</button></a>
+			<a href="{{url_for('deleteBook', book_to_delete= bookSelected.title)}}"><button class="btn btn-danger" id="delete-button-synopsis">Delete</button></a>
 		{% endif %}
 
 {% endblock %}

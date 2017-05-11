@@ -1,20 +1,22 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<style type="text/css">
-		</style>
-	</head>
-
+{% extends "main.html" %}
+{% block content %}
 	<body>
-		<h1> Are you sure you want to delete {{book_to_delete.title}}</h1>
-
+		<h1> Are you sure you want to delete:</h1>
+		</br>
+		</br>
+		</br>
+		<h1> {{book_to_delete.title}} ?</h1>
+		</br>
+		</br>
+		</br>
+		</br>
 		<form action="#" method = 'post'>
 
-			<input type='submit', value = 'Delete'>
+			<button type='submit' class="btn btn-success" id="deleteSubmit">Delete</button>
 
 		</form>
-
-		<a href = "{{url_for('bookList')}}"> Cancel </a>
+		</br>
+		</br>
+		<a href = "{{url_for('bookList')}}"><button class="btn btn-danger" id="deleteCancel">Cancel</button></a>
 	</body>
-
-</html>
+{% endblock %}

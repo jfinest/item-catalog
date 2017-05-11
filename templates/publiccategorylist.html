@@ -3,9 +3,14 @@
 	
 	<a href = "{{url_for('showLogin')}}"><button class="btn btn-primary">Log In</button></a>
 	</br>
-	<h2>Book Listing:</h2>
+	</br>
+	<h2>{{category}}</h2>
+	</br>
+	</br>
 	{% for book in selectedCategory %}
 		<a href = '{{url_for('viewSelectedBook', category_name=book.category_name, book_view=book.title)}}'>{{book.title}}</br></a>
+		</br>
+		</br>
 	{% endfor %}
 
 {% endblock %}

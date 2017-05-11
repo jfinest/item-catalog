@@ -1,9 +1,12 @@
 {% extends "main.html" %}
 {% block content %}
-
-	<a href="{{url_for('newBook')}}" > <h3> Create a New Book </h3> </a>
-
+	<a href = "{{url_for('gdisconnect')}}"><button class="btn btn-primary">Log Out</button></br></a>
+	<a href="{{url_for('newBook')}}" ><button class="btn btn-info"><h5>Create a New Book</h5></button></a>
+	</br>
+	</br>
+	</br>
 	{% for category in categories %}
+		</br>
 		<a href = "{{url_for('selectedCategoryList', category_name=category.name)}}">{{category.name}}</a>
 		</br>
 	{% endfor %}
