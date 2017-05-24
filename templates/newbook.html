@@ -1,45 +1,46 @@
 {% extends "main.html" %}
 {% block content %}
-	<body>
-		<h1>Adding New Book</h1>
-		<div class='pane'>
-				<form action="#" method = 'post'>
+		<h1>Adding New Book Synopsis</h1>
+		<a href="{{url_for('bookList')}}"><button class="btn btn-danger">Cancel</button></a>
+		</br>
+		</br>
+		<div class='row'>
+			<form action="#" method = 'post'>
+				<div class="col-md-6">
+					<label>
+						<div id="label-title">Title:</div>
+						</br>
+						<input type='text' name='title'>
+						</br>
+					</label>
+					</br>
+					</br>
 
-				<label>
-					<div id="label-title">Title:</div>
-					<input type='text' name='title'>
-				</label>
+					<label>
+						<div id="label-author">Author:</div>
+						</br>
+						<input type='text' name='author'>
+						</br>
+					</label>
+					</br>
+					</br>
+					<label>
+						<div id="label-description">Summary:</div>
+						</br>
+						<textarea name='description'></textarea>
+						</br>
+					</label>
+					</br>
+					<button type='submit' class="btn btn-success">Submit</button>
+				</div>
 
-				<label>
-					<div id="label-title">Author:</div>
-					<input type='text' name='author'>
-				</label>
-
-				<label>
-					<div id="label-title">Description:</div>
-					<textarea name='description'></textarea>
-				</label>
-
-
-
-				<!-- <dl>	
-					<dt>Title: </dt>
-						<dd><input type = 'text' size='50' name='title'></dd>
-					<dt>Author: </dt>
-						<dd><input type = 'text' size='50' name='author'></dd>
-					<dt>Description: </dt>
-						<dd><input type = 'text' size='250' name='description'></dd>
-				</dl> -->
-
-				<p>Category:</p>
-					<input type ='radio'  name='category' value ='Sci-Fi'>Sci-Fi</br>
-					<input type ='radio'  name='category' value ='Trilogy'>Trilogy</br>
-					<input type ='radio' name='category' value ='Poetry'>Poetry</br>
-					<input type ='radio'  name='category' value ='Horror'>Horror</br>
-				</br>
-				<button type='submit' class="btn btn-success">Submit</button>
-				</form>
-			</div>
-	
-	</body>
+				<div class="col-md-6">
+					<p class="text-center">Category:</p>
+					</br>
+					{% for category in categories %}
+						<input type='radio' name='category' value='{{category.name}}'>{{category.name}}</br>
+					{% endfor %}
+				</div>	
+			</form>
+		</div>
 {% endblock %}

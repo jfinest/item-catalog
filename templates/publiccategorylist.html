@@ -1,16 +1,24 @@
 {% extends "main.html" %}
 {% block content %}
-	
-	<a href = "{{url_for('showLogin')}}"><button class="btn btn-primary">Log In</button></a>
+	<div class="row">
 	</br>
-	</br>
-	<h2>{{category}}</h2>
-	</br>
-	</br>
-	{% for book in selectedCategory %}
-		<a href = '{{url_for('viewSelectedBook', category_name=book.category_name, book_view=book.title)}}'>{{book.title}}</br></a>
-		</br>
-		</br>
-	{% endfor %}
-
+		<div class="col-md-6">
+			<div  id="log-button">
+				<a href = "{{url_for('showLogin')}}"><button class="btn btn-primary">Log In</button></a>
+				</br>
+				</br>
+			</div>
+			<h2>{{category}}</h2>
+			</br>
+			</br>
+			<div id="bookListing">
+				{% for book in selectedCategory %}
+					<a href = '{{url_for('viewSelectedBook', category_name=book.category_name, book_view=book.title)}}'>{{book.title}}</br></a>
+					</br>
+					</br>
+				{% endfor %}
+			</div>
+		<div class="col-md-6">
+		</div>
+	</div>
 {% endblock %}

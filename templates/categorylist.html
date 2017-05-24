@@ -1,23 +1,25 @@
 {% extends "main.html" %}
 {% block content %}
-	<a href = "{{url_for('gdisconnect')}}"><button class="btn btn-primary">Log Out</button></br></a>
-	<a href="{{url_for('newBook')}}" ><button class="btn btn-info"><h5>Create a New Book</h5></button></a>
-	</br>
-	</br>
-	</br>
-	</br>
-	<h1>{{category}}</h1>
-	</br>
-	</br>
-	</br>
-	{% for book in selectedCategory %}
-		<a href = '{{url_for('viewSelectedBook', category_name=book.category_name, book_view=book.title)}}'>{{book.title}}</a>
-		{% if user == book.user_id%}
+	<div class="row">
+		<div class="col-md-6">
 			</br>
-			<a href="{{url_for('editBook', book_for_edit= book.title)}}"><button class="btn btn-warning">Edit</button></a>
-			<a href="{{url_for('deleteBook', book_to_delete= book.title)}}"><button class="btn btn-danger">Delete</button></a>
-		{% endif %}
-		</br><br>
-	{% endfor %}
-
+			<a href = "{{url_for('gdisconnect')}}"><button class="btn btn-primary" id="button">Log Out</button></a>
+			</br>
+			</br>
+			<a href="{{url_for('newBook')}}" ><button class="btn btn-info" id="button"><h5>Create a New Book Summary</h5></button></a>
+			</br>
+			
+			<h1>{{category}}</h1>
+			</br>
+			{% for book in selectedCategory %}
+				<a href = '{{url_for('viewSelectedBook', category_name=book.category_name, book_view=book.title)}}'>{{book.title}}</a>
+				{% if user == book.user_id%}
+					</br>
+					<a href="{{url_for('editBook', book_for_edit= book.title)}}"><button class="btn btn-warning">Edit</button></a>
+					<a href="{{url_for('deleteBook', book_to_delete= book.title)}}"><button class="btn btn-danger">Delete</button></a>
+				{% endif %}
+				</br><br>
+			{% endfor %}
+		</div>
+	</div>		
 {% endblock %}
