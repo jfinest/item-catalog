@@ -196,6 +196,9 @@ def viewSelectedBook(category_name, book_view):
 def newBook():
   if 'username' not in login_session:
     return redirect('/login')
+
+  categories = session.query(Category).all()  
+
   if request.method == 'POST':
   	number = randint(6,12500)
   	newbook = Book(title=request.form['title'], author=request.form['author'], description=request.form['description'], category_name=request.form['category'], user_id= login_session['user_id'])
@@ -206,30 +209,31 @@ def newBook():
 	return redirect(url_for('bookList'))
 
   else:
-  	return render_template('newbook.html')
+  	return render_template('newbook.html', categories=categories)
 
 @app.route('/book/<book_for_edit>/edit/', methods=['GET', 'POST'])
 def editBook(book_for_edit):
-	if 'username' not in login_session:
-		return redirect('/login')
-	editedBook = session.query(Book).filter_by(title=book_for_edit).one()
-	if request.method == 'POST':
-		if request.form['title']:
-			editedBook.title = request.form['title']
-		if request.form['author']:
-			editedBook.author = request.form['author']
-		if request.form['description']:
-			editedBook.description = request.form['description']
-		if request.form['category']:
-			editedBook.category_name = request.form['category']
-		session.add(editedBook)
-		# flash('Book Successfully Edited')
-		session.commit()
-		return redirect(url_for('bookList'))
+  categories=session.query(Category).all()
+  if 'username' not in login_session:
+    return redirect('/login')  
+  editedBook = session.query(Book).filter_by(title=book_for_edit).one()
+  if request.method == 'POST':
+    if request.form['title']:
+      editedBook.title = request.form['title']
+    if request.form['author']:
+      editedBook.author = request.form['author']
+    if request.form['description']:
+      editedBook.description = request.form['description']
+    if request.form['category']:
+      editedBook.category_name = request.form['category']
+    session.add(editedBook)
+    # flash('Book Successfully Edited')
+    session.commit()
+    return redirect(url_for('bookList'))
 
-	else:
-	  return render_template(
-          'editBook.html', editedBook=editedBook)
+  else:
+    return render_template(
+          'editBook.html', editedBook=editedBook, categories=categories)
 
 
 @app.route('/book/<book_to_delete>/delete/', methods=['GET', 'POST'])
