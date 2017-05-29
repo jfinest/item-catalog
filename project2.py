@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 from flask import Flask
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import desc
 from database_setup2 import Base, Category, Book, User
 from random import randint
 
@@ -116,10 +117,10 @@ def gconnect():
     login_session['user_id'] = user_id
 
     output = ''
-    output += '<h1>Welcome, '
+    output += '<h1> &nbsp &nbsp &nbsp Welcome, '
     output += login_session['username']
     output += '!</h1>'
-    output += '<img src="'
+    output += '&nbsp &nbsp &nbsp &nbsp <img src="'
     output += login_session['picture']
     output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash("you are now logged in as %s" % login_session['username'])
@@ -158,11 +159,12 @@ def gdisconnect():
 @app.route('/')
 @app.route('/book/')
 def bookList():
+  recent = session.query(Book).order_by(desc(Book.id)).limit(10)
   categories = session.query(Category).all()
   if 'username' not in login_session:
-    return render_template('publicbooklist.html', categories=categories)
+    return render_template('publicbooklist.html', categories=categories, recent=recent)
   else:
-    return render_template('booklist.html', categories=categories)
+    return render_template('booklist.html', categories=categories, recent=recent)
 
 @app.route('/book/<category_name>/JSON')
 def categoryListJSON(category_name):
