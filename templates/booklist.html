@@ -8,28 +8,38 @@
 			<a href="{{url_for('newBook')}}" ><button class="btn btn-info" id="button"><h5>Create a New Book Summary</h5></button></a>
 			</br>
 			</br>
-			{% for category in categories %}
-				{% if category.id%2 %}
-					<a href = "{{url_for('selectedCategoryList', category_name=category.name)}}" class="a-category">{{category.name}}</a>
-					</br>
-					</br>
-				{% endif %}
-			{% endfor %}
+			<div class="row">
+				<div class="col-md-6">
+					{% for category in categories %}
+						{% if category.id%2 %}
+							<a href = "{{url_for('selectedCategoryList', category_name=category.name)}}" class="a-category">{{category.name}}</a>
+							</br>
+							</br>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<div class="col-md-6">
+					{% for category in categories %}
+						{% if category.id%2 == 0 %}
+							<a href = "{{url_for('selectedCategoryList', category_name=category.name)}}" class="a-category">{{category.name}}</a>
+							</br>
+							</br>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
 		</div>
 		<div class="col-md-6">
 			</br>
 			</br>
 			</br>
 			</br>
+			<h2>Recently Added:</h2>
 			</br>
-			</br>
-			</br>
-			{% for category in categories %}
-				{% if category.id%2 == 0 %}
-					<a href = "{{url_for('selectedCategoryList', category_name=category.name)}}" class="a-category">{{category.name}}</a>
-					</br>
-					</br>
-				{% endif %}
+			{% for book in recent %}
+				<a href = '{{url_for('viewSelectedBook', category_name=book.category_name, book_view=book.title)}}'>{{book.title}} ({{book.category_name}})</a>
+				</br>
+				</br>
 			{% endfor %}
 		</div>
 	</div>

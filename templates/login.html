@@ -7,6 +7,7 @@
   </script>
 
 <script src="//apis.google.com/js/platform.js?onload=start"> </script>
+<link type="text/css" rel="stylesheet" href="/static/style.css" />
 
 <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
 
@@ -14,13 +15,13 @@
 </head>
 
 
-<body>  
-
-
+<body id="login">  
+          </br>
+          </br>
+          </br>
 <!-- GOOGLE PLUS SIGN IN-->
 
-          
-          <div id="signInButton">
+          <div id="signInButton" class="logPage">
           <span class="g-signin"
             data-scope="openid email"
             data-clientid="10435797067-onrgd40lb8fvbsvktpdqku1qevc8g7em.apps.googleusercontent.com"
@@ -49,7 +50,7 @@ function signInCallback(authResult) {
       success: function(result) {
         // Handle or verify the server response if necessary.
         if (result) {
-          $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+          $('#result').html('&nbsp &nbsp &nbsp &nbsp &nbsp Login Successful!</br>'+ result + '</br> &nbsp &nbsp &nbsp &nbsp &nbsp Redirecting...')
          setTimeout(function() {
           window.location.href = "/book";
          }, 4000);
