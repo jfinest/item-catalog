@@ -1,27 +1,28 @@
 {% extends "main.html" %}
 {% block content %}
+	{% if user == editedBook.user_id %}
 		<h1>Editing {{editedBook.title}} Synopsis</h1>
 		<div class="row">
 			<form class="form-horizontal" action="{{url_for('editBook', book_for_edit=editedBook.title)}}" method = 'post'>
 				<div class="col-md-6">
-				<label>
-					<div id="label-title">Title:</div>
-					<input type='text' name='title' value='{{editedBook.title}}'>
+					<label>
+						<div id="label-title">Title:</div>
+						<input type='text' name='title' value='{{editedBook.title}}'>
+						</br>
+					</label></br>
+
+					<label>
+						<div id="label-author">Author:</div>
+						<input type='text' name='author' value='{{editedBook.author}}'></br>
+					</label></br>
+
+					<label>
+						<div id="label-description">Summary:</div>
+						<textarea name='description' value='{{editedBook.description}}'>{{editedBook.description}}</textarea></br>
+					</label></br>
+					<button type='submit' class="btn btn-success">Submit</button>
 					</br>
-				</label></br>
-
-				<label>
-					<div id="label-author">Author:</div>
-					<input type='text' name='author' value='{{editedBook.author}}'></br>
-				</label></br>
-
-				<label>
-					<div id="label-description">Summary:</div>
-					<textarea name='description' value='{{editedBook.description}}'>{{editedBook.description}}</textarea></br>
-				</label></br>
-				<button type='submit' class="btn btn-success">Submit</button>
-				</br>
-				<a href="{{url_for('bookList')}}"><button class="btn btn-danger">Cancel</button></a>
+					<a href="{{url_for('bookList')}}"><button type="button" class="btn btn-danger">Cancel</button></a>
 				</div>
 
 				<div class="col-md-6">
@@ -36,4 +37,23 @@
 	    		</div>
 			</form>
 		</div>
+	{% else %}
+		</br>
+		<div class="row">
+			<div class="col-md-6">
+				</br>
+				<h3>Sorry you are not the author for this summary.</h3>
+				<h3>Click button to take you back.</h3>
+				</br>
+				<a href = "{{url_for('selectedCategoryList', category_name=editedBook.category_name)}}" class="a-category"><button type="button" class="btn btn-info">Go Back</button></a>
+			</div>
+			<div class="col-md-6">
+				</br>
+				<h3>Want to create your own book summary:</h3>
+				</br>
+				</br>
+				<a href="{{url_for('newBook')}}" ><button type="button" class="btn btn-info" id="button">Create a New Book Summary</button></a>
+			</div>
+		</div>
+	{% endif %}
 {% endblock %}

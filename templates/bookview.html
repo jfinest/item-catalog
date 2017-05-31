@@ -18,11 +18,13 @@
 				<a href="{{url_for('deleteBook', book_to_delete= bookSelected.title)}}"><button class="btn btn-danger" id="delete-button-synopsis">Delete</button></a>
 			{% endif %}
 		</div>
+
 		<div class="col-md-6" id="summary">
 			</br>
 			<p class="text-center">Summary:</p>
 			</br>
 			<p> {{bookSelected.description}}</p>
 		</div>
+		
 	</div>	
 {% endblock %}
