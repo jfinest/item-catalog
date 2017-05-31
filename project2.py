@@ -19,6 +19,7 @@ import httplib2
 import json
 from flask import make_response
 import requests
+from functools import wraps
 
 
 CLIENT_ID = json.loads(open('client_secrets.json',
@@ -34,6 +35,15 @@ Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' not in login_session:
+            return redirect('/login')
+        return f(*args, **kwargs)
+    return decorated_function
 
 
 # route for login
@@ -183,20 +193,20 @@ def bookList():
                                recent=recent)
 
 
-@app.route('/book/<category_name>/JSON')
+@app.route('/book/<path:category_name>/JSON')
 def categoryListJSON(category_name):
     selectedCategory = session.query(Book).filter_by(
                        category_name=category_name).all()
     return jsonify(BookLists=[i.serialize for i in selectedCategory])
 
 
-@app.route('/book/<category_name>/<book_view>/JSON')
+@app.route('/book/<path:category_name>/<path:book_view>/JSON')
 def selectedBookJSON(category_name, book_view):
     selectedBook = session.query(Book).filter_by(title=book_view).one()
     return jsonify(BookSelected=selectedBook.serialize)
 
 
-@app.route('/book/<category_name>/')
+@app.route('/book/<path:category_name>/')
 def selectedCategoryList(category_name):
     selectedCategory = session.query(Book).filter_by(
                        category_name=category_name).all()
@@ -211,7 +221,7 @@ def selectedCategoryList(category_name):
                                category=category_name)
 
 
-@app.route('/book/<category_name>/<book_view>/')
+@app.route('/book/<path:category_name>/<path:book_view>/')
 def viewSelectedBook(category_name, book_view):
     bookSelected = session.query(Book).filter_by(title=book_view).one()
     if 'username' not in login_session:
@@ -224,10 +234,8 @@ def viewSelectedBook(category_name, book_view):
 
 
 @app.route('/book/new/', methods=['GET', 'POST'])
+@login_required
 def newBook():
-    if 'username' not in login_session:
-        return redirect('/login')
-
     categories = session.query(Category).all()
     if request.method == 'POST':
         newbook = Book(title=request.form['title'],
@@ -244,13 +252,17 @@ def newBook():
         return render_template('newbook.html', categories=categories)
 
 
-@app.route('/book/<book_for_edit>/edit/', methods=['GET', 'POST'])
+@app.route('/book/<path:book_for_edit>/edit/', methods=['GET', 'POST'])
+@login_required
 def editBook(book_for_edit):
-    if 'username' not in login_session:
-        return redirect('/login')
-
     categories = session.query(Category).all()
     editedBook = session.query(Book).filter_by(title=book_for_edit).one()
+
+    if editedBook.user_id != login_session['user_id']:
+        return render_template('editBook.html',
+                               editedBook=editedBook,
+                               categories=categories,
+                               user=getUserID(login_session['email']))
 
     if request.method == 'POST':
         if request.form['title']:
@@ -272,12 +284,15 @@ def editBook(book_for_edit):
                                user=getUserID(login_session['email']))
 
 
-@app.route('/book/<book_to_delete>/delete/', methods=['GET', 'POST'])
+@app.route('/book/<path:book_to_delete>/delete/', methods=['GET', 'POST'])
+@login_required
 def deleteBook(book_to_delete):
-    if 'username' not in login_session:
-        return redirect('/login')
-
     deletingBook = session.query(Book).filter_by(title=book_to_delete).first()
+
+    if deletingBook.user_id != login_session['user_id']:
+        return render_template('deleteBook.html',
+                               book_to_delete=deletingBook,
+                               user=getUserID(login_session['email']))
 
     if request.method == 'POST':
         session.delete(deletingBook)
