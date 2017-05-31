@@ -4,7 +4,6 @@ body{
 }
 
 h2{
-  /*margin-left: 60px;*/
   margin-bottom: 0px;
   margin-top: 0px;
 }
@@ -18,13 +17,6 @@ textarea{
   width: 400px;
   height: 300px;
 }
-/*#log-button{
-  margin-left: 60px;
-}
-
-#public_categoryList{
-  margin-left: 60px;
-}*/
 
 .container{
   margin-left: 70px;
